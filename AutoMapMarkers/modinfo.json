@@ -1,13 +1,13 @@
 {
     "type": "code",
     "modid": "automapmarkers",
-    "name": "AutoMapMarkers",
+    "name": "AutoMap Markers Sharable",
     "authors": [
-        "Unknown"
+        "Golqaer"
     ],
     "description": "To be added",
     "version": "1.0.0",
     "dependencies": {
-        "game": ""
+        "game": "1.19.0"
     }
 }
