@@ -90,7 +90,7 @@ public class SharableWaypointsClient : Common.SharableWaypoints
             return true;
         }
 
-        ___capi.ShowChatMessage(Lang.Get("sharablewaypoints:cannot-edit"));
+        ___capi.ShowChatMessage(Lang.Get("automapmarkers:cannot-edit"));
         ___capi.Event.RegisterCallback(_ => { __instance.TryClose(); }, 1);
 
         __result = false;
@@ -104,7 +104,7 @@ public class SharableWaypointsClient : Common.SharableWaypoints
             return true;
         }
 
-        ___capi.ShowChatMessage(Lang.Get("sharablewaypoints:cannot-delete"));
+        ___capi.ShowChatMessage(Lang.Get("automapmarkers:cannot-delete"));
 
         __result = true;
         return false;
@@ -117,7 +117,7 @@ public class SharableWaypointsClient : Common.SharableWaypoints
             return true;
         }
 
-        ___capi.ShowChatMessage(Lang.Get("sharablewaypoints:cannot-save"));
+        ___capi.ShowChatMessage(Lang.Get("automapmarkers:cannot-save"));
 
         __result = true;
         return false;
