@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapMarkers", "AutoMapMarkers\AutoMapMarkers.csproj", "{56532CEE-0D1D-4DB7-B33E-6EF6A0C4B4EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeBuild", "CakeBuild\CakeBuild.csproj", "{A26FC6CC-989C-42DE-9CB2-9AD7B4C10DF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56532CEE-0D1D-4DB7-B33E-6EF6A0C4B4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56532CEE-0D1D-4DB7-B33E-6EF6A0C4B4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56532CEE-0D1D-4DB7-B33E-6EF6A0C4B4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56532CEE-0D1D-4DB7-B33E-6EF6A0C4B4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26FC6CC-989C-42DE-9CB2-9AD7B4C10DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26FC6CC-989C-42DE-9CB2-9AD7B4C10DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26FC6CC-989C-42DE-9CB2-9AD7B4C10DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26FC6CC-989C-42DE-9CB2-9AD7B4C10DF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA2A3BE7-DA3C-47CE-90B5-0E131ACDC971}
+	EndGlobalSection
+EndGlobal
