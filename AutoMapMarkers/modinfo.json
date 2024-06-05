@@ -5,7 +5,7 @@
     "authors": [
         "Golqaer"
     ],
-    "description": "To be added",
+    "description": "Автоматическое проставление меток. Так же возможность метками делиться",
     "version": "1.0.0",
     "dependencies": {
         "game": "1.19.0"
