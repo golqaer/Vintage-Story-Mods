@@ -48,7 +48,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="YamlDotNet">
-      <HintPath>C:\Users\Golqaer\Downloads\Release-Net70\YamlDotNet.dll</HintPath>
+      <HintPath>C:\Users\Golqaer\Documents\~Libs\Release-Net70\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 

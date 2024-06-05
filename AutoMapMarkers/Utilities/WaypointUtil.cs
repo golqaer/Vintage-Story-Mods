@@ -123,15 +123,9 @@ namespace AutoMapMarkers.Utilities
                 .Where(p => p.Groups.Any(g => g.GroupUid == groupId))
                 .ToList()
                 ;
-            //AutoMapMarkersModSystem.CoreServerAPI.World.Logger.Chat($"{playersToSend.Count}");
 
-            ServerPlayer.SendMessage(GlobalConstants.GeneralChatGroup, $"Player(s) to send {playersToSend.Count}", Vintagestory.API.Common.EnumChatType.Notification);
-            ServerPlayer.SendMessage(GlobalConstants.GeneralChatGroup, $"CurrentGroupId {groupId}", Vintagestory.API.Common.EnumChatType.Notification);
-
-            AutoMapMarkersModSystem.CoreServerAPI.Server.Players.Foreach(p =>
-            {
-                ServerPlayer.SendMessage(GlobalConstants.GeneralChatGroup, $"Player {p.PlayerName}, Groups: {string.Join(", ",p.Groups.Select(g => g.GroupUid.ToString()))};", Vintagestory.API.Common.EnumChatType.Notification);
-            });
+            if (!playersToSend.Any(p => p.PlayerUID == ServerPlayer.PlayerUID))
+                playersToSend.Add(ServerPlayer);
 
             if (sendChatMessageToPlayer)
             {
@@ -139,12 +133,7 @@ namespace AutoMapMarkers.Utilities
                 MessageUtil.Chat(Lang.Get("Ok, waypoint nr. {0} added", waypointIndex), ServerPlayer);
             }
 
-            foreach (var p in playersToSend)
-            {
-                ServerPlayer.SendMessage(_settings.ShareWaypointGroupId, $"Sending to {p.PlayerName}...", Vintagestory.API.Common.EnumChatType.Notification);
-                ResendWaypoints(p);
-                ServerPlayer.SendMessage(_settings.ShareWaypointGroupId, $"Done({p.PlayerName})", Vintagestory.API.Common.EnumChatType.Notification);
-            }
+            playersToSend.ForEach(p => ResendWaypoints(p));
         }
 
         /// <summary>
@@ -174,7 +163,7 @@ namespace AutoMapMarkers.Utilities
             {
                 WaypointMapLayer.Waypoints.Remove(closestWp);
                 RebuildMapComponents();
-                ResendWaypoints();
+                ResendWaypoints(ServerPlayer);
                 if (sendChatMessageToPlayer)
                 {
                     MessageUtil.Chat(Lang.Get("Ok, deleted waypoint."), ServerPlayer);
@@ -189,14 +178,6 @@ namespace AutoMapMarkers.Utilities
         /// <summary>
         /// Resends waypoints to the client(s).
         /// </summary>
-        private void ResendWaypoints()
-        {
-            if (Valid)
-            {
-                ResendWaypointsMethod.Invoke(WaypointMapLayer, new object[] { ServerPlayer as IServerPlayer });
-            }
-        }
-
         private void ResendWaypoints(IServerPlayer player)
         {
             if (Valid)
