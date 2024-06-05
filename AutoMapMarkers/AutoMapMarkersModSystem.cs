@@ -16,6 +16,8 @@ namespace AutoMapMarkers
 {
     public class AutoMapMarkersModSystem : ModSystem
     {
+        public const string SHARABLE_WP_CHANNEL = "AutoMapMarkers.Network.SharableWpChannel";
+
         public static string SavegameIdentifier => CoreAPI!.World.SavegameIdentifier;
 
         private SharableWaypointsClient? _client;
@@ -25,6 +27,9 @@ namespace AutoMapMarkers
         public static ICoreServerAPI CoreServerAPI;
         public static ICoreClientAPI CoreClientAPI;
         public static MapMarkerNetwork Network;
+
+        public static IServerNetworkChannel ServerSharableNtChannel;
+        public static IClientNetworkChannel ClientSharableNtChannel;
 
         public override bool ShouldLoad(EnumAppSide side)
         {
@@ -50,6 +55,12 @@ namespace AutoMapMarkers
         public override void StartServerSide(ICoreServerAPI api)
         {
             CoreServerAPI = api;
+
+            ServerSharableNtChannel = api.Network
+                .RegisterChannel(SHARABLE_WP_CHANNEL)
+                .RegisterMessageType(typeof(MapMarkerConfig.Settings))
+                ;
+
             _server = new SharableWaypointsServer(this);
             MapMarkerConfig.GetSettings(api, true); //Ensure config file is generated at startup if one does not exist yet.
             Network = new MapMarkerNetwork(CoreServerAPI);
@@ -61,6 +72,12 @@ namespace AutoMapMarkers
         public override void StartClientSide(ICoreClientAPI api)
         {
             CoreClientAPI = api;
+
+            ClientSharableNtChannel = api.Network
+                .RegisterChannel(SHARABLE_WP_CHANNEL)
+                .RegisterMessageType(typeof(MapMarkerConfig.Settings))
+                ;
+
             _client = new SharableWaypointsClient(this);
             Network = new MapMarkerNetwork(CoreClientAPI);
             CoreClientAPI.Input.InWorldAction += SneakHandler.HandlePlayerSneak;

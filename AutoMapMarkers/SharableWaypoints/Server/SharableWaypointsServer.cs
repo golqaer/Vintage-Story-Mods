@@ -1,3 +1,4 @@
+using AutoMapMarkers.Settings;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -27,11 +28,20 @@ public class SharableWaypointsServer : Common.SharableWaypoints
 
         Harmony.Patch(typeof(WaypointMapLayer).GetMethod("AddWaypoint", Flags, new[] { typeof(Waypoint), typeof(IServerPlayer) }),
             postfix: typeof(SharableWaypointsServer).GetMethod("PostAddWaypoint"));
+
+        AutoMapMarkersModSystem.ServerSharableNtChannel.
+            SetMessageHandler<MapMarkerConfig.Settings>(OnReceiveSettings);
+            ;
+    }
+
+    private void OnReceiveSettings(IServerPlayer fromPlayer, MapMarkerConfig.Settings response)
+    {
+        GroupCache.Add(fromPlayer.PlayerUID, response.ShareWaypointGroupId);   
     }
 
     public static void PreOnCmdWayPoint(TextCommandCallingArgs args)
     {
-        GroupCache.Add(args.Caller.Player.PlayerUID, args.Caller.FromChatGroupId);
+        //GroupCache.Add(args.Caller.Player.PlayerUID, args.Caller.FromChatGroupId);
     }
     public static void AddToDict(string playerUID, int groupId)
     {

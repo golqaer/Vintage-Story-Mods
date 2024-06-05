@@ -55,7 +55,7 @@ namespace AutoMapMarkers.Network
         public ICoreAPI CoreAPI;
         public IServerNetworkChannel ServerNetworkChannel;
         public IClientNetworkChannel ClientNetworkChannel;
-        public const string ChannelID = "Egocarib.AutoMapMarkers.Network.MapMarkerChannel";
+        public const string ChannelID = "AutoMapMarkers.Network.MapMarkerChannel";
         private Timer ClientHandshakeTimer;
         private int ConnectionCheckAttempts = 0;
 

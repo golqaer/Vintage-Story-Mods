@@ -1,3 +1,4 @@
+using AutoMapMarkers.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -21,7 +22,8 @@ public class SharableWaypointsClient : Common.SharableWaypoints
         Harmony.Patch(typeof(GuiDialogAddWayPoint).GetMethod("autoSuggestName", Flags),
             prefix: typeof(SharableWaypointsClient).GetMethod("PreAutoSuggestName"));
         Harmony.Patch(typeof(GuiDialogAddWayPoint).GetMethod("onSave", Flags),
-            postfix: typeof(SharableWaypointsClient).GetMethod("PostOnAddSave"));
+            postfix: typeof(SharableWaypointsClient).GetMethod("PostOnAddSave"),
+            prefix: typeof(SharableWaypointsClient).GetMethod("PreOnAddSave"));
 
         Harmony.Patch(typeof(GuiDialogEditWayPoint).GetMethod("TryOpen", Flags, Array.Empty<Type>()),
             prefix: typeof(SharableWaypointsClient).GetMethod("PreEditTryOpen"));
@@ -72,16 +74,16 @@ public class SharableWaypointsClient : Common.SharableWaypoints
         return false;
     }
 
+    public static void PreOnAddSave(GuiDialogAddWayPoint __instance, ref string ___curIcon, ref string ___curColor)
+    {
+        AutoMapMarkersModSystem.ClientSharableNtChannel.SendPacket(MapMarkerConfig.GetSettings(AutoMapMarkersModSystem.CoreClientAPI));
+    }
+
     public static void PostOnAddSave(GuiDialogAddWayPoint __instance, ref string ___curIcon, ref string ___curColor)
     {
         string curName = __instance.SingleComposer.GetTextInput("nameInput").GetText();
         Settings.SetWaypointName($"{___curIcon}-{___curColor}", curName);
     }
-
-    //public static void PostOnAddSaveTitled(string currentTitle, string currentIcon, string currentColor)
-    //{
-    //    Settings.SetWaypointName($"{currentIcon}-{currentColor}", currentTitle);
-    //}
 
     public static bool PreEditTryOpen(GuiDialogEditWayPoint __instance, ref bool __result, ref ICoreClientAPI ___capi, ref Waypoint ___waypoint)
     {
